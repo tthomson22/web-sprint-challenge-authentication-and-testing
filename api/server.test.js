@@ -8,10 +8,6 @@ beforeAll(async() => {
   await db.migrate.latest()
 })
 
-beforeEach(async() => {
-  await db('users').truncate();
-})
-
 afterAll(async() => {
   await db.destroy()
 })
@@ -37,10 +33,10 @@ describe('/register', () => {
 })
 
 describe('/login', () => {
-  test('returns status 201', async() => {
+  test('returns status 201', async () =>{
     const res = await request(server)
       .post('/api/auth/login')
-      .send({ username: 'name', password: '12345' })
+      .send({username: 'name', password: '12345'})
     expect(res.status).toBe(201)
   })
   test('returns status 422', async() => {

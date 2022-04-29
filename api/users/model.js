@@ -1,7 +1,7 @@
 const db = require('../../data/dbConfig')
 
-function get(){
-    return db('users')
+function get(filter){
+    return db('users').where(filter)
 }
 
 function getById(id){
