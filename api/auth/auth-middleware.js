@@ -6,7 +6,7 @@ const checkIfValid = (req, res, next) => {
         next()
     } else {
         res.status(422).json({
-            message: "username and password is required"
+            message: "username and password required"
         }) 
     }
 }
@@ -16,7 +16,7 @@ async function checkUsernameExists(req, res, next) {
         const users = await User.get({ username: req.body.username})
         if(!users){
             res.status(422).json({
-                message: "that username is taken"
+                message: "username taken"
             })
         } else {
             req.users = users
