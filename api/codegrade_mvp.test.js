@@ -37,7 +37,7 @@ describe('/login', () => {
     const res = await request(server)
       .post('/api/auth/login')
       .send({username: 'name', password: '12345'})
-    expect(res.status).toBe(201)
+    expect(res.status).toBe(200)
   })
   test('returns status 422', async() => {
     const res = await request(server)
