@@ -3,35 +3,33 @@ const bcrypt = require("bcryptjs");
 
 function checkUsernameFree(req, res, next) {
   const username = req.body.username;
-  User.findBy({ username }).then(([user]) => {
-    if (user) {
-      res.status(400).json({
-        message: `Username Taken`,
-      });
+  User.findBy({ username })
+  .then(([user]) => {
+    if (!user) {
+        next();
     } else {
-      next();
+        res.status(400).json({
+          message: `Username Taken`,
+        });
     }
-  });
+  })
+  .catch((err) => next(err))
 }
 
-async function checkCredentials(req, res, next) {
-    try{
-        const { username, password } = req.body;
+function checkCredentials(req, res, next) {
+    const { username, password } = req.body;
 
-        if (
-          !username ||
-          username.trim() === null ||
-          !password ||
-          password.trim() === null
-        ) {
-          res.status(400).json({
-            message: `username and password required`,
-          });
-        } else {
-          next();
-        }
-    } catch {
-        next()
+    if (
+        !username ||
+        username.trim() === null ||
+        !password ||
+        password.trim() === null
+    ) {
+        res.status(400).json({
+        message: `username and password required`,
+        });
+    } else {
+        next();
     }
 
 }
