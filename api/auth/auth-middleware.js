@@ -14,21 +14,26 @@ function checkUsernameFree(req, res, next) {
   });
 }
 
-function checkCredentials(req, res, next) {
-  const { username, password } = req.body;
+async function checkCredentials(req, res, next) {
+    try{
+        const { username, password } = req.body;
 
-  if (
-    !username ||
-    username.trim() === null ||
-    !password ||
-    password.trim() === null
-  ) {
-    res.status(400).json({
-      message: `username and password required`,
-    });
-  } else {
-    next();
-  }
+        if (
+          !username ||
+          username.trim() === null ||
+          !password ||
+          password.trim() === null
+        ) {
+          res.status(400).json({
+            message: `username and password required`,
+          });
+        } else {
+          next();
+        }
+    } catch {
+        next()
+    }
+
 }
 
 function checkRegisteredUser(req, res, next) {
