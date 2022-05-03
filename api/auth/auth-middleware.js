@@ -19,7 +19,7 @@ const checkIfValid = (req, res, next) => {
 async function checkUsernameExists(req, res, next) {
     try{
         const users = await User.get({ username: req.body.username})
-        if(users){
+        if(!users){
             res.status(422).json({
                 message: "username taken"
             })
