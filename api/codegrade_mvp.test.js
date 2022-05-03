@@ -30,10 +30,17 @@ describe('/register', () => {
       .send({ username: 'name', password: '' })
     expect(res.status).toBe(422)
   })
+  test(`requires a valid username and password to register`, async () => {
+    let res = await request(server)
+      .post("/api/auth/register")
+      .send({ username: "newName" });
+    expect(res.body.message).toMatch(/username and password required/i);
+    expect(res.status).toBe(422);
+  });
 })
 
 describe('/login', () => {
-  test('returns status 201', async () =>{
+  test('returns status 200', async () =>{
     const res = await request(server)
       .post('/api/auth/login')
       .send({username: 'name', password: '12345'})

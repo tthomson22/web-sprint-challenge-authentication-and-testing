@@ -1,20 +1,25 @@
 const User = require('../users/model')
 
 const checkIfValid = (req, res, next) => {
-    const {username, password} = req.body
-    if (!username || !password) {
+    const { username, password } = req.body;
+    if (
+        !username ||
+        username.trim() === null ||
+        !password ||
+        password.trim() === null
+    ) {
         res.status(422).json({
-            message: "username and password required"
-        }) 
+        message: `username and password required`,
+        });
     } else {
-        next()
+        next();
     }
 }
 
 async function checkUsernameExists(req, res, next) {
     try{
         const users = await User.get({ username: req.body.username})
-        if(!users){
+        if(users){
             res.status(422).json({
                 message: "username taken"
             })
