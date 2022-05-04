@@ -11,8 +11,8 @@ const { JWT_SECRET } = require("../secret");
 
 router.post(
   "/register",
-  checkUsernameFree,
   checkCredentials,
+  checkUsernameFree,
   (req, res, next) => {
     const { username, password } = req.body;
     const trimUser = username.trim();
